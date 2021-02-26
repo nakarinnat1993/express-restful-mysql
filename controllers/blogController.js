@@ -1,5 +1,20 @@
-exports.index = (req, res, next) => {
+const models = require('../models/index');
+
+exports.index = async (req, res, next) => {
+    const blogs = await models.Blog.findAll({
+        include:[
+            {
+                model :models.User, 
+                as: 'users',
+                attributes: ['id','name']
+            }
+        ],
+        order:[
+            ['id','desc']
+        ]
+    });
+
     res.status(200).json({
-        message: 'แสดงรายการ Blogs'
+        data: blogs
     });
 }
