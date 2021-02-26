@@ -7,6 +7,7 @@
 const app = require('../app');
 const debug = require('debug')('express-restful-mysql:server');
 const http = require('http');
+const config = require('../config/index');
 
 /**
  * Get port from environment and store in Express.
