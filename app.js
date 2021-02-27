@@ -5,6 +5,11 @@ const logger = require('morgan');
 const basicAuth = require('express-basic-auth');
 const helmet = require("helmet");
 const cors = require('cors');
+const config_env = require('./config/index');
+const app_username = process.env.APP_USERNAME;
+const app_password = process.env.APP_PASSWORD;
+const users = {};
+users[app_username] = app_password;
 
 
 const indexRouter = require('./routes/index');
@@ -27,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/blogs', basicAuth({
-    users: { 'admin': '1234' }
+    users
 }), blogsRouter);
 
 module.exports = app;
